@@ -5,15 +5,36 @@ const Todo = require('../models/todo');
 const middleware = require('../middleware');
 //index
 router.get('/', middleware, (req, res) => {
-	Todo.find({}, (err, allTodos) => {
-		if (err) {
-			console.log(err);
-		} else {
-			res.render('index', {
-				allTodos
-			});
-		}
-	});
+	if (req.query.search) {
+		const regex = new RegExp(
+			escapeRegex(req.query.search),
+			'gi'
+		);
+		Todo.find({ todo: regex }, (err, allTodos) => {
+			if (err) {
+				req.flash('error', err.message);
+				return res.redirect('/');
+			} else {
+				if (allTodos.length < 1) {
+					req.flash('error', 'No Match Found');
+					return res.redirect('/');
+				}
+				res.render('index', {
+					allTodos
+				});
+			}
+		});
+	} else {
+		Todo.find({}, (err, allTodos) => {
+			if (err) {
+				console.log(err);
+			} else {
+				res.render('index', {
+					allTodos
+				});
+			}
+		});
+	}
 });
 
 //create
@@ -82,4 +103,7 @@ router.put('/:id', (req, res) => {
 		}
 	);
 });
+function escapeRegex(text) {
+	return text.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, '\\$&');
+}
 module.exports = router;
