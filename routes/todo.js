@@ -10,20 +10,32 @@ router.get('/', middleware, (req, res) => {
 			escapeRegex(req.query.search),
 			'gi'
 		);
-		Todo.find({ todo: regex,author:{id:req.user._id,username:req.user.username }, (err, allTodos) => {
-			if (err) {
-				req.flash('error', err.message);
-				return res.redirect('/');
-			} else {
-				if (allTodos.length < 1) {
-					req.flash('error', 'No Match Found');
-					return res.redirect('/');
+		Todo.find(
+			{
+				todo: regex,
+				author: {
+					id: req.user._id,
+					username: req.user.username
 				}
-				res.render('index', {
-					allTodos
-				});
+			},
+			(err, allTodos) => {
+				if (err) {
+					req.flash('error', err.message);
+					return res.redirect('/');
+				} else {
+					if (allTodos.length < 1) {
+						req.flash(
+							'error',
+							'No Match Found'
+						);
+						return res.redirect('/');
+					}
+					res.render('index', {
+						allTodos
+					});
+				}
 			}
-		});
+		);
 	} else {
 		Todo.find({}, (err, allTodos) => {
 			if (err) {
