@@ -1,0 +1,51 @@
+<%- include("./partials/header") %>
+
+<div class="container card pb-1 pt-4 my-5  main">
+  <h1 class="card-title display-3 text-center todo">To-Do List</h1>
+  <div class="card-body">
+    <ul class="list-group">
+      <% if(allTodos.length){ %>
+      <% for(let todo of allTodos) {%>
+      <% if(currentUser && todo.author.id && todo.author.id.equals(currentUser._id)){%>
+      <li class="list-group-item red click">
+        <span class="li-todo pr-3"><%=todo.todo%></span>
+        <span class="float-right text-muted time"><%=moment(todo.createdAt).fromNow()%> </span>
+        <span>
+          <form class="delete inline mr-0 float-right" action="/<%=todo._id%>?_method=DELETE" method="post">
+            <button class="btn btn-xs btn-danger display"><i class="fas fa-trash-alt"></i></button>
+          </form>
+        </span>
+        <span>
+          <a href="<%=`/${todo._id}/edit`%>" class="btn btn-xs btn-primary display float-right">
+            <i class="fas fa-pencil-alt"></i>
+          </a>
+        </span>
+      </li>
+      <%}%>
+          <% }%>
+      <% } %>
+    </ul>
+  </div>
+  <hr class="mb-0">
+  <div class="row">
+    <div class="form">
+      <form action="/" method="POST">
+        <label for="new" class="label-new">To-Do</label>
+        <input type="text" id="new" class="form-control width" name="todo" placeholder="Kill Voldemort"
+          aria-label="Todo" aria-describedby="basic-addon2">
+        <div class="input-group-append">
+          <button class=" btn btn-success" id="basic-addon2">Make Todo</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+<script>
+  const lis = document.querySelectorAll('.li-todo')
+  for (const li of lis) {
+    li.addEventListener('click', (evt) => {
+      evt.target.classList.toggle('strike')
+    })
+  }
+</script>
+<%- include("./partials/footer") %>
