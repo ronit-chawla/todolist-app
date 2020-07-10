@@ -10,7 +10,7 @@ router.get('/', middleware, (req, res) => {
 			escapeRegex(req.query.search),
 			'gi'
 		);
-		Todo.find({ todo: regex }, (err, allTodos) => {
+		Todo.find({ todo: regex,author:{id:req.user._id,username:req.user.username }, (err, allTodos) => {
 			if (err) {
 				req.flash('error', err.message);
 				return res.redirect('/');
