@@ -4,8 +4,10 @@ const todoSchema = new mongoose.Schema({
 	createdAt : { type: Date, default: Date.now },
 	author    : {
 		id       : {
-			type : mongoose.Schema.Types.ObjectId,
-			ref  : 'User'
+			type    : mongoose.Schema.Types.ObjectId,
+			ref     : 'User',
+			dueDate : Date,
+			pastDue : Boolean
 		},
 		username : String
 	}
