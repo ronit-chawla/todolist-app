@@ -12,10 +12,10 @@ router.get('/', middleware, (req, res) => {
 		);
 		Todo.find(
 			{
-				todo: regex,
-				author: {
-					id: req.user._id,
-					username: req.user.username
+				todo   : regex,
+				author : {
+					id       : req.user._id,
+					username : req.user.username
 				}
 			},
 			(err, allTodos) => {
@@ -55,10 +55,11 @@ router.post('/', middleware, (req, res) => {
 	Todo.create(
 		{
 			todo,
-			author : {
+			author  : {
 				id       : req.user._id,
 				username : req.user.username
-			}
+			},
+			striked : false
 		},
 		(err, todo) => {
 			if (err) {
@@ -98,22 +99,37 @@ router.get('/:id/edit', middleware, async (req, res) => {
 //update
 router.put('/:id', (req, res) => {
 	const { todo } = req.body;
-	Todo.findByIdAndUpdate(
-		req.params.id,
-		{ todo },
-		(err, updatedComment) => {
+	Todo.findByIdAndUpdate(req.params.id, { todo }, err => {
+		if (err) {
+			req.flash('error', err.message);
+			res.redirect('back');
+		} else {
+			req.flash(
+				'success',
+				'Succesfully, updated To do'
+			);
+			res.redirect('/');
+		}
+	});
+});
+//strike
+router.put('/:id/toggleStrike', (req, res) => {
+	Todo.findById(req.params.id, (err, todo) => {
+		if (err) return handleError(err);
+		todo.striked = !todo.striked;
+		todo.save((err, updatedTodo) => {
 			if (err) {
 				req.flash('error', err.message);
 				res.redirect('back');
 			} else {
 				req.flash(
 					'success',
-					'Succesfully, updated To do'
+					'Succesfully, striked To do'
 				);
 				res.redirect('/');
 			}
-		}
-	);
+		});
+	});
 });
 function escapeRegex(text) {
 	return text.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, '\\$&');

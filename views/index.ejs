@@ -8,15 +8,17 @@
       <% for(let todo of allTodos) {%>
       <% if(currentUser && todo.author.id && todo.author.id.equals(currentUser._id)){%>
       <li class="list-group-item red click">
-        <span class="li-todo pr-3"><%=todo.todo%></span>
+        <form class="inline default" action="<%=`/${todo._id}/toggleStrike?_method=PUT`%>"method="POST">
+          <button class="li-todo pr-3 text <%=todo.striked?'strike':''%>"><%=todo.todo%></button>
+        </form>
         <span class="float-right text-muted time"><%=moment(todo.createdAt).fromNow()%> </span>
         <span>
-          <form class="delete inline mr-0 float-right" action="/<%=todo._id%>?_method=DELETE" method="post">
-            <button class="btn btn-xs btn-danger display"><i class="fas fa-trash-alt"></i></button>
+          <form class="delete inline mr-0 float-right " action="/<%=todo._id%>?_method=DELETE" method="post">
+            <button class="btn btn-xs btn-danger display text"><i class="fas fa-trash-alt"></i></button>
           </form>
         </span>
         <span>
-          <a href="<%=`/${todo._id}/edit`%>" class="btn btn-xs btn-primary display float-right">
+          <a href="<%=`/${todo._id}/edit`%>" class="btn btn-xs btn-primary display float-right text">
             <i class="fas fa-pencil-alt"></i>
           </a>
         </span>
@@ -39,12 +41,4 @@
     </div>
   </div>
 </div>
-<script>
-  const lis = document.querySelectorAll('.li-todo')
-  for (const li of lis) {
-    li.addEventListener('click', (evt) => {
-      evt.target.classList.toggle('strike')
-    })
-  }
-</script>
 <%- include("./partials/footer") %>
