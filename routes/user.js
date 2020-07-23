@@ -18,6 +18,7 @@ router.post('/register', (req, res) => {
 		req.body.password,
 		(err, user) => {
 			if (err) {
+				req.flash('error', err.message);
 				return res.render('register');
 			}
 			passport.authenticate('local')(req, res, () => {

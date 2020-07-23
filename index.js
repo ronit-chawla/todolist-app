@@ -4,7 +4,6 @@ const express = require('express'),
 	app = express(),
 	bodyParser = require('body-parser'),
 	mongoose = require('mongoose'),
-	Todo = require('./models/todo'),
 	seedDB = require('./seed'),
 	methodOverride = require('method-override'),
 	passport = require('passport'),
@@ -13,9 +12,11 @@ const express = require('express'),
 	passportLocalMongoose = require('passport-local-mongoose'),
 	flash = require('connect-flash'),
 	port = process.env.PORT || 3000;
-//?routes
+
+//?require routes
 const todoRoutes = require('./routes/todo'),
 	userRoutes = require('./routes/user');
+
 //?mongoose config
 mongoose.set('useNewUrlParser', true);
 mongoose.set('useFindAndModify', false);
@@ -37,6 +38,7 @@ app.locals.moment = require('moment');
 
 //?seedDb
 // seedDB();
+
 //?passport config
 app.use(
 	require('express-session')({
@@ -58,11 +60,12 @@ app.use((req, res, next) => {
 	res.locals.success = req.flash('success');
 	next();
 });
+
 //?routes
 app.use('/', todoRoutes);
 app.use('/', userRoutes);
 
 //?listen
 app.listen(port, () => {
-	console.log(`started at ${port}`);
+	console.log(`started`);
 });
