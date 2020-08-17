@@ -13,6 +13,7 @@
 	transition: all ease 2s;
 }
 .red {
+	background-color: none;
 	border-color: #fff;
 }
 body {
@@ -96,8 +97,11 @@ hr:before {
 .list-group-item.red.click:hover a {
 	display: inline;
 }
+.list-group-item.red.click:hover .finish {
+	display: inline;
+}
 .list-group-item.red.click:hover .time {
-	display: none;
+	display: none !important;
 }
 .inline {
 	display: inline;
@@ -108,4 +112,8 @@ hr:before {
 	font-size: 16px;
 	cursor: pointer;
 	/* display: inline-block; */
+}
+.time-up {
+	background-color: #000;
+	color: #fff;
 }

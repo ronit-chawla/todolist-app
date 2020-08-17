@@ -7,11 +7,17 @@
       <% if(allTodos.length){ %>
       <% for(let todo of allTodos) {%>
       <% if(currentUser && todo.author.id && todo.author.id.equals(currentUser._id)){%>
-      <li class="list-group-item red click">
+      <li class="list-group-item red click <%=todo.finishedBy.getTime()<=date.getTime()?'time-up':''%> ">
         <form class="inline default" action="<%=`/${todo._id}/toggleStrike?_method=PUT`%>"method="POST">
-          <button class="li-todo pr-3 text <%=todo.striked?'strike':''%>"><%=todo.todo%></button>
+          <button 
+          class="li-todo pr-3 text <%=todo.striked?'strike':''%><%=todo.finishedBy.getTime()<=date.getTime()?'time-up':''%> ">
+          <%=todo.todo%>
+        </button>
         </form>
         <span class="float-right text-muted time"><%=moment(todo.createdAt).fromNow()%> </span>
+        <%if(todo.finishedBy.getTime()<=date.getTime()){%>
+          <span  class="text-muted float-right pr-3 time">Time finished <%=moment(todo.finishedBy).fromNow()%> </span>
+        <%}%>
         <span>
           <form class="delete inline mr-0 float-right " action="/<%=todo._id%>?_method=DELETE" method="post">
             <button class="btn btn-xs btn-danger display text"><i class="fas fa-trash-alt"></i></button>
@@ -22,6 +28,7 @@
             <i class="fas fa-pencil-alt"></i>
           </a>
         </span>
+        <span class="float-right text-muted display finish">Finish by: <%=todo.finishedBy.toLocaleDateString()%></span>
       </li>
       <%}%>
           <% }%>
@@ -31,11 +38,13 @@
   <hr class="mb-0">
   <div class="row">
     <div class="form">
-      <form action="/" method="POST">
-        <label  class="label-new">To-Do</label>
-          <textarea cols="7" rows="5"class="form-control width" required type="text" name="todo" placeholder="kill voldemort" aria-label="Todo" aria-describedby="basic-addon2"></textarea>
-        <div class="input-group-append">
-          <button class=" btn btn-success" id="basic-addon2">Add Todo</button>
+      <form action="/" method="POST" >
+          <label >Todo</label>
+          <textarea class="form-control width" required type="text" name="todo[todo]" placeholder="kill voldemort"></textarea>
+          <label>Finishing Date</label>
+          <input class="form-control" required type="date" name="todo[finishedBy]">
+        <div class="form-group">
+          <button class="btn btn-md btn-success btn-block">Make Todo!</button>
         </div>
       </form>
     </div>
