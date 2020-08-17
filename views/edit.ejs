@@ -8,7 +8,10 @@
       <form action="<%=`/${todo._id}?_method=PUT`%> " method="POST" >
         <div class="form-group">
           <label >Todo</label>
-          <textarea cols="20" rows="5"class="form-control" required type="text" name="todo" ><%= todo.todo %> </textarea>
+          <textarea cols="20" rows="5"class="form-control" required type="text" name="todo[todo]" ><%= todo.todo %> </textarea>
+        </div>
+        <div class="form-group">
+          <input type="date" name="todo[finishedBy]"required class="form-control">
         </div>
         <div class="form-group">
           <button class="btn btn-md btn-success btn-block">Edit Todo!</button>

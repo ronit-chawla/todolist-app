@@ -109,18 +109,22 @@ router.get('/:id/edit', middleware, async (req, res) => {
 //update
 router.put('/:id', (req, res) => {
 	const { todo } = req.body;
-	Todo.findByIdAndUpdate(req.params.id, { todo }, err => {
-		if (err) {
-			req.flash('error', err.message);
-			res.redirect('back');
-		} else {
-			req.flash(
-				'success',
-				'Succesfully, updated To do'
-			);
-			res.redirect('/');
+	Todo.findByIdAndUpdate(
+		req.params.id,
+		{ ...todo },
+		err => {
+			if (err) {
+				req.flash('error', err.message);
+				res.redirect('back');
+			} else {
+				req.flash(
+					'success',
+					'Succesfully, updated To do'
+				);
+				res.redirect('/');
+			}
 		}
-	});
+	);
 });
 //strike
 router.put('/:id/toggleStrike', (req, res) => {
