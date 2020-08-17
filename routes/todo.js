@@ -31,7 +31,8 @@ router.get('/', middleware, (req, res) => {
 						return res.redirect('/');
 					}
 					res.render('index', {
-						allTodos
+						allTodos,
+						date     : new Date()
 					});
 				}
 			}
@@ -49,7 +50,8 @@ router.get('/', middleware, (req, res) => {
 					console.log(err);
 				} else {
 					res.render('index', {
-						allTodos
+						allTodos,
+						date     : new Date()
 					});
 				}
 			}
@@ -62,7 +64,7 @@ router.post('/', middleware, (req, res) => {
 	const { todo } = req.body;
 	Todo.create(
 		{
-			todo,
+			...todo,
 			author  : {
 				id       : req.user._id,
 				username : req.user.username

@@ -8,7 +8,11 @@
       <form action="/" method="POST" >
         <div class="form-group">
           <label >Todo</label>
-          <input class="form-control" required type="text" name="todo" placeholder="kill voldemort">
+          <input class="form-control" required type="text" name="todo[todo]" placeholder="kill voldemort">
+        </div>
+        <div class="form-group">
+          <label>Finishing Date</label>
+          <input class="form-control" required type="date" name="todo[date]">
         </div>
         <div class="form-group">
           <button class="btn btn-md btn-success btn-block">Make Todo!</button>
