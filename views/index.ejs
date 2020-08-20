@@ -14,9 +14,9 @@
           <%=todo.todo%>
         </button>
         </form>
-        <span class="float-right text-muted time"><%=moment(todo.createdAt).local().fromNow()%> </span>
+        <span class="float-right text-muted time"><%=todo.finishedBy.getTime()<=date.getTime()?`Created: ${moment(todo.createdAt).fromNow()}`:moment(todo.createdAt).fromNow()%> </span>
         <%if(todo.finishedBy.getTime()<=date.getTime()){%>
-          <span  class="text-muted float-right pr-3 time">Time finished <%=moment(todo.finishedBy).local().fromNow()%> UTC </span>
+          <span  class="text-muted float-right pr-2 time">Time finished</span>
         <%}%>
         <span>
           <form class="delete inline mr-0 float-right " action="/<%=todo._id%>?_method=DELETE" method="post">
