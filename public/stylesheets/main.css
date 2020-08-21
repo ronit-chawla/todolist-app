@@ -31,7 +31,7 @@ body {
 	min-height: 200px;
 }
 .width {
-	width: 500px;
+	width: 360px;
 }
 .label-new {
 	font-size: 1.5em;
@@ -91,18 +91,6 @@ hr:before {
 .display {
 	display: none;
 }
-.list-group-item.red.click:hover button {
-	display: inline;
-}
-.list-group-item.red.click:hover a {
-	display: inline;
-}
-.list-group-item.red.click:hover .finish {
-	display: inline;
-}
-.list-group-item.red.click:hover .time {
-	display: none !important;
-}
 .inline {
 	display: inline;
 }
@@ -112,6 +100,42 @@ hr:before {
 	font-size: 16px;
 	cursor: pointer;
 	/* display: inline-block; */
+}
+.time-up {
+	background-color: #000;
+	color: #fff;
+}
+#container {
+	width: 500px;
+	margin: 100px auto;
+	box-shadow: 0 0 3px rgba(0, 0, 0, 0.01);
+	background-color: #f7f7f7;
+	padding: 0;
+}
+.list {
+	list-style: none;
+	display: flex;
+	flex-direction: column;
+	align-items: stretch;
+	padding: 0;
+}
+.list-item {
+	line-height: 40px;
+	background-color: #fff;
+	color: #666;
+	margin: 0;
+}
+.list-item:hover button {
+	display: inline;
+}
+.list-item:hover a {
+	display: inline;
+}
+.list-item:hover .finish {
+	display: inline;
+}
+.list-item:hover .time {
+	display: none !important;
 }
 .time-up {
 	background-color: #000;

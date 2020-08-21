@@ -1,13 +1,11 @@
 <%- include("./partials/header") %>
-
-<div class="container card pb-1 pt-4 my-5  main">
-  <h1 class="card-title display-3 text-center todo">To-Do List</h1>
-  <div class="card-body">
-    <ul class="list-group">
+<div class="container pb-1 pt-4 my-5"id="container">
+  <h1 class="display-6 text-center todo">To-Do List</h1>
+    <ul class="list">
       <% if(allTodos.length){ %>
       <% for(let todo of allTodos) {%>
       <% if(currentUser && todo.author.id && todo.author.id.equals(currentUser._id)){%>
-      <li class="list-group-item red click <%=todo.finishedBy.getTime()<=date.getTime()?'time-up':''%> ">
+      <li class="list-item <%=todo.finishedBy.getTime()<=date.getTime()?'time-up':''%> ">
         <form class="inline default" action="<%=`/${todo._id}/toggleStrike?_method=PUT`%>"method="POST">
           <button 
           class="li-todo pr-3 text <%=todo.striked?'strike':''%><%=todo.finishedBy.getTime()<=date.getTime()?'time-up':''%> ">
@@ -18,13 +16,13 @@
         <%if(todo.finishedBy.getTime()<=date.getTime()){%>
           <span  class="text-muted float-right pr-2 time">Time finished</span>
         <%}%>
-        <span>
-          <form class="delete inline mr-0 float-right " action="/<%=todo._id%>?_method=DELETE" method="post">
-            <button class="btn btn-xs btn-danger display text"><i class="fas fa-trash-alt"></i></button>
+        <span class="ml-5">
+          <form class="inline" action="/<%=todo._id%>?_method=DELETE" method="post">
+            <button class="btn btn-xs btn-danger display"><i class="fas fa-trash-alt"></i></button>
           </form>
         </span>
-        <span>
-          <a href="<%=`/${todo._id}/edit`%>" class="btn btn-xs btn-primary display float-right text">
+        <span class="">
+          <a href="<%=`/${todo._id}/edit`%>" class="btn btn-xs btn-primary display">
             <i class="fas fa-pencil-alt"></i>
           </a>
         </span>
@@ -34,7 +32,6 @@
           <% }%>
       <% } %>
     </ul>
-  </div>
   <hr class="mb-0">
   <div class="row">
     <div class="form">
@@ -42,7 +39,7 @@
           <label >Todo</label>
           <textarea class="form-control width" required type="text" name="todo[todo]" placeholder="kill voldemort"></textarea>
           <label>Finishing Date</label>
-          <input class="form-control" required type="date" name="todo[finishedBy]">
+          <input class="form-control width" required type="date" name="todo[finishedBy]">
         <div class="form-group">
           <button class="btn btn-md btn-success btn-block">Make Todo!</button>
         </div>
