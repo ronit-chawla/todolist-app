@@ -16,13 +16,13 @@
         <%if(todo.finishedBy.getTime()<=date.getTime()){%>
           <span  class="text-muted float-right pr-2 time">Time finished</span>
         <%}%>
-        <span class="ml-5">
+        <span class="float-right">
           <form class="inline" action="/<%=todo._id%>?_method=DELETE" method="post">
-            <button class="btn btn-xs btn-danger display"><i class="fas fa-trash-alt"></i></button>
+            <button class="btn btn-xs btn-danger"><i class="fas fa-trash-alt"></i></button>
           </form>
         </span>
-        <span class="">
-          <a href="<%=`/${todo._id}/edit`%>" class="btn btn-xs btn-primary display">
+        <span class="float-right">
+          <a href="<%=`/${todo._id}/edit`%>" class="btn btn-xs btn-primary">
             <i class="fas fa-pencil-alt"></i>
           </a>
         </span>
