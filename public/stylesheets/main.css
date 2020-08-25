@@ -144,3 +144,8 @@ hr:before {
 .list-item:not(:last-child) {
 	border-bottom: 1px solid #000;
 }
+@media only screen and (max-width: 62.5em) {
+	.display {
+		display: inline;
+	}
+}
