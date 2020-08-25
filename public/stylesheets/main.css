@@ -131,13 +131,7 @@ hr:before {
 	color: #666;
 	margin: 0;
 }
-.list-item:hover button {
-	display: inline;
-}
-.list-item:hover a {
-	display: inline;
-}
-.list-item:hover .finish {
+.list-item:hover span {
 	display: inline;
 }
 .list-item:hover .time {
