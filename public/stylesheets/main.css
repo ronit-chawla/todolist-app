@@ -145,7 +145,11 @@ hr:before {
 	border-bottom: 1px solid #000;
 }
 @media only screen and (max-width: 62.5em) {
-	.display {
-		display: inline;
+	.display,
+	.time {
+		display: inline !important;
+	}
+	.time {
+		padding-left: 10px;
 	}
 }
